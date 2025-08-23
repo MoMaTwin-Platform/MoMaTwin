@@ -1,0 +1,163 @@
+defaults:
+  - _self_
+  - task: instruct_put_box
+
+name: resnet50
+# name: resnet18_colorjiter_478_hist2frame
+_target_: diffusion_policy.workspace.train_diffusion_unet_image_workspace_distribute_v4.TrainDiffusionUnetImageWorkspace
+
+task_name: ${task.name}
+shape_meta: ${task.shape_meta}
+exp_name: "instruct_put_box"
+
+policy:
+  _target_: diffusion_policy.policy.diffusion_unet_image_policy.DiffusionUnetImagePolicy
+  shape_meta: ${shape_meta}
+  
+  noise_scheduler:
+    _target_: diffusers.schedulers.DDIMScheduler
+    # _target_: diffusers.DDIMScheduler
+    num_train_timesteps: 100
+    beta_start: 0.0001
+    beta_end: 0.02
+    # beta_schedule is important
+    # this is the best we found
+    beta_schedule: squaredcos_cap_v2
+    clip_sample: True
+    set_alpha_to_one: True
+    steps_offset: 0
+    prediction_type: epsilon # or sample
+
+  obs_encoder:
+    _target_: diffusion_policy.model.vision.multi_image_obs_encoder.MultiImageObsEncoder
+    shape_meta: ${shape_meta}
+    rgb_model:
+      _target_: diffusion_policy.model.vision.model_getter.get_resnet
+      name: resnet50
+      # weights: IMAGENET1K_V1 # or r3m
+      # name: resnet18
+      # weights: r3m # or r3m
+    # resize_shape: [224, 224]
+    resize_shape: [478, 478]
+    crop_shape: [478, 478]
+    random_crop: False # !!! I want mask image align with face_view, so no crop
+    color_randomizer_prob: 0.0 # augmentation for colorjitter probility on training
+    use_group_norm: True
+    share_rgb_model: True
+    imagenet_norm: True
+    # norm_mean: [0.5,0.5,0.5] # [0.485, 0.456, 0.406]
+    # norm_std: [0.5,0.5,0.5] # [0.229, 0.224, 0.225]
+    norm_mean: [0.485, 0.456, 0.406]
+    norm_std: [0.229, 0.224, 0.225]
+    div255: True
+    pretrained: False
+    use_img_instruction: False # support first_img+mask
+
+  # lm_encoder:
+  #   _target_: diffusion_policy.model.lm.distilbert.DistilBertEncoder
+  #   name: /x2robot/ganruyi/models/distilbert-base-uncased
+  #   max_len: 40
+  #   use_cls: True
+  #   sum_pooling: False
+
+  num_inference_steps: 100
+  obs_as_global_cond: True
+  # crop_shape: null
+  # diffusion_step_embed_dim: 128
+  # down_dims: [512, 1024, 2048]
+  diffusion_step_embed_dim: 256
+  # diffusion_step_embed_dim: 128
+  down_dims: [512, 1024, 2048]
+  kernel_size: 5
+  n_groups: 8
+  cond_predict_scale: True
+  input_pertub: 0 # reference: https://github.com/forever208/DDPM-IP
+
+  # scheduler.step params
+  # predict_epsilon: True
+  # train multiple diffusion steps per obs encoder forward pass
+  # doing this too much will cause instability!
+  # train_diffusion_n_samples: 1
+
+ema:
+  # _target_: diffusion_policy.model.diffusion.ema_model.EMAModel
+  _target_: diffusers.training_utils.EMAModel
+  update_after_step: 0
+  inv_gamma: 1.0
+  power: 0.75
+  min_decay: 0.0
+  decay: 0.9999
+
+train_dataloader:
+  batch_size: 32 # 4gpu for gbs=256; 卡多batch_size需要往小了调，TODO：为什么
+
+val_dataloader:
+  batch_size: 32
+
+optimizer:
+  _target_: torch.optim.AdamW
+  lr: 2e-4
+  # lr: 1.9e-4
+  betas: [0.95, 0.999]
+  eps: 1.0e-8
+  weight_decay: 1.0e-6
+
+training:
+  device: "cuda"
+  seed: 42
+  debug: False
+  # debug: True
+  lr_scheduler: cosine
+  lr_warmup_steps: 1000
+  num_epochs: 500
+  gradient_accumulate_every: 1
+  # EMA destroys performance when used with BatchNorm
+  # replace BatchNorm with GroupNorm.
+  use_ema: False
+  freeze_encoder: False
+  freeze_lm_encoder: False
+  # training loop control
+  # in epochs
+  rollout_every: 1
+  checkpoint_every: 5
+  val_every: 5
+  sample_every: 5
+  # steps per epoch
+  max_train_steps: null
+  max_val_steps: null
+  # misc
+  tqdm_interval_sec: 1.0
+  resume: False
+  # resume_ckpt_path: '/x2robot/caichuang/workspace/diffusion_policy/2025.05.15/01.38.58_resnet50_instruct_put_box/checkpoints/latest.ckpt'
+
+logging:
+  # project: diffusion_policy_debug
+  project: instruct_put_box
+  resume: False
+  mode: online
+  name: ${now:%Y.%m.%d-%H.%M.%S}_${name}_${task_name}
+  tags: ["${name}", "${task_name}", "${exp_name}"]
+  id: null
+  group: null
+
+checkpoint:
+  topk:
+    monitor_key: train_loss
+    mode: min
+    k: 20
+    format_str: 'epoch={epoch:04d}-train_loss={train_loss:.5f}.ckpt'
+  save_last_ckpt: True
+  save_last_snapshot: False
+
+multi_run:
+  run_dir: /x2robot/caichuang/workspace/diffusion_policy/${now:%Y.%m.%d}/${now:%H.%M.%S}_${name}_${task_name}
+  wandb_name_base: ${name}_${task_name}_${now:%Y.%m.%d-%H.%M.%S}
+
+hydra:
+  job:
+    override_dirname: ${name}
+  run:
+    dir: ${multi_run.run_dir} 
+  # sweep:
+  #   dir: /x2robot/ganruyi/workspace/diffusion_policy/${now:%H.%M.%S}_${name}_${task_name}
+  #   subdir: ${hydra.job.num}

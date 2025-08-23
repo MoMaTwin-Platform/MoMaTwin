@@ -1,0 +1,425 @@
+name: fold_towel_takeover
+
+image_shape: [3, 480, 640]
+low_dim_obs_horizon: 1
+img_obs_horizon: 1
+action_horizon: 20
+action_history_length: 0
+image_history_length: 0
+filter_angle_outliers: False
+trim_stationary: True
+
+predict_action_keys:
+  - follow_left_ee_cartesian_pos
+  - follow_left_ee_rotation
+  - follow_left_gripper
+  - follow_right_ee_cartesian_pos
+  - follow_right_ee_rotation
+  - follow_right_gripper
+
+# obs_action_keys必须配置，不能缺失
+obs_action_keys:
+  - follow_left_ee_cartesian_pos
+  - follow_left_ee_rotation
+  - follow_left_gripper
+  - follow_right_ee_cartesian_pos
+  - follow_right_ee_rotation
+  - follow_right_gripper
+  - follow_left_gripper_cur
+  - follow_right_gripper_cur
+
+task_config_path: /x2robot_v2/ganruyi/code/diffusion_policy/diffusion_policy/config/task/fold_towel.yaml
+
+dataset_path:
+  - path: /x2robot_data/zhengwei/factory10018/20250623-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250623-day-10010-fold-towel-slave2master-1
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250624-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250625-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250626-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250627-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250627-day-10010-fold-towel-slave2master-1
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250623-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250624-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250625-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250626-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250627-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250628-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250620-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250620-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250619-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250619-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250618-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250618-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250617-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250617-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250616-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250616-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250613-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250613-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250613-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250612-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250612-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250611-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250611-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250610-night-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250610-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250609-day-10010-fold-towel-slave2master-2
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/10068/20250609-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250609-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250609-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250606-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250606-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250605-day-10010-fold-towel-slave2master-1
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10018/20250605-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250605-day-10010-fold-towel-slave2master
+    use_takeover_only: true
+  - path: /x2robot_data/zhengwei/factory10023/20250604-day-10010-fold-towel-slave2master-slave2master
+    use_takeover_only: true
+  # factory10018数据集
+  - path: /x2robot_data/zhengwei/factory10018/20250327-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250327-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10018/20250328-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250328-day-fold-item-toewl-2
+  - path: /x2robot_data/zhengwei/factory10018/20250329-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250329-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10018/20250330-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250330-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10018/20250407-day-fold-item-towel
+  - path: /x2robot_data/zhengwei/factory10018/20250408-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250408-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10018/20250409-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250409-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10018/20250410-day-fold-towel-1
+  - path: /x2robot_data/zhengwei/factory10018/20250410-day-fold-towel-2
+  - path: /x2robot_data/zhengwei/factory10018/20250410-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10018/20250411-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10018/20250414-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10018/20250415-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10018/20250416-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10018/20250416-day-fold-towel-new
+  - path: /x2robot_data/zhengwei/factory10018/20250417-day-fold-towel-new
+    # # factory10019数据集
+  - path: /x2robot_data/zhengwei/factory10019/20250403-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10019/20250407-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10019/20250407-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10019/20250407-day-fold-item-towel-2
+  - path: /x2robot_data/zhengwei/factory10019/20250408-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10019/20250410-day-fold-item-towel-1
+  - path: /x2robot_data/zhengwei/factory10019/20250410-day-fold-towel-1
+  - path: /x2robot_data/zhengwei/factory10019/20250410-day-fold-towel-2
+  - path: /x2robot_data/zhengwei/factory10019/20250411-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10019/20250414-day-fold-towel
+  - path: /x2robot_data/zhengwei/factory10019/20250415-day-fold-towel
+    # # factory10020数据集
+    # - path: /x2robot_data/zhengwei/factory10020/20250327-day-fold-item-towel-1   
+    # - path: /x2robot_data/zhengwei/factory10020/20250327-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10020/20250328-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10020/20250328-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10020/20250329-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10020/20250329-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10020/20250330-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10020/20250330-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10020/20250331-day-fold-item-towel-1-1
+    # - path: /x2robot_data/zhengwei/factory10020/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10020/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10020/20250401-day-fold-item-towel-2
+    # # factory10023数据集
+    # - path: /x2robot_data/zhengwei/factory10023/20250327-night-fold-item-towel-3
+    # # factory10024数据集
+    # - path: /x2robot_data/zhengwei/factory10024/20250325-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10024/20250326-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10024/20250326-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10024/20250326-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/factory10024/20250327-day-fold-item-towel-2
+    # # factory10025数据集
+    # - path: /x2robot_data/zhengwei/factory10025/20250325-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/factory10025/20250325-night-fold-item-towel-4-1
+    # - path: /x2robot_data/zhengwei/factory10025/20250326-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10025/20250326-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/factory10025/20250326-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/factory10025/20250327-night-fold-item-towel-3
+    # # factory10026数据集
+    # - path: /x2robot_data/zhengwei/factory10026/20250328-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10026/20250328-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10026/20250329-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10026/20250329-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10026/20250330-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10026/20250330-day-fold-item-towel-2
+    # # factory10027数据集
+    # - path: /x2robot_data/zhengwei/factory10027/20250403-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/factory10027/20250403-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/factory10027/20250416-day-fold-towel
+    # - path: /x2robot_data/zhengwei/factory10027/20250417-day-fold-towel
+    # # 10006数据集
+    # - path: /x2robot_data/zhengwei/10006/20250326-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10006/20250326-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10006/20250326-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10006/20250327-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10006/20250327-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10006/20250327-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10006/20250327-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10006/20250328-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10006/20250328-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10006/20250328-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10006/20250328-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10006/20250329-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10006/20250329-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10006/20250329-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10006/20250329-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10006/20250330-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10006/20250330-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10006/20250330-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10006/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10006/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10006/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10006/20250402-day-fold-item-towel-1
+    # # 10007数据集
+    # - path: /x2robot_data/zhengwei/10007/20250325-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250325-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250325-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10007/20250326-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250326-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250326-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10007/20250327-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250327-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250327-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250327-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10007/20250328-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250328-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250328-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250328-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10007/20250329-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250329-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250329-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250329-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10007/20250330-day-fold-item-towel
+    # - path: /x2robot_data/zhengwei/10007/20250330-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250330-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250331-day-fold-item-towel
+    # - path: /x2robot_data/zhengwei/10007/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250401-day-pick_up-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250401-day-pick_up-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250401-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250402-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250402-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250402-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250402-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10007/20250403-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250403-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250403-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10007/20250407-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10007/20250410-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10007/20250411-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10007/20250414-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10007/20250415-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10007/20250416-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10007/20250417-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10007/20250416-day-fold-towel-new-2
+    # - path: /x2robot_data/zhengwei/10070/20250417-day-fold-towel
+    # # 10009数据集
+    # - path: /x2robot_data/zhengwei/10009/20250407-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10009/20250408-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10009/20250408-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10009/20250409-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10009/20250409-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10009/20250409-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10009/20250410-day-fold-towel-1
+    # # 10015数据集
+    # - path: /x2robot_data/zhengwei/10015/20250403-night-fold-item-towel-4
+    # # 10044数据集
+    # - path: /x2robot_data/zhengwei/10044/20250325-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10044/20250401-day-fold-item-towel-2
+    # # 10052数据集    
+    # - path: /x2robot_data/zhengwei/10052/20250326-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10052/20250326-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10052/20250326-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10052/20250327-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10052/20250327-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10052/20250327-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10052/20250331-day-pick_up-item-towel-2
+    # - path: /x2robot_data/zhengwei/10052/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10052/20250401-day-fold-item-towel-1
+    # # 10054数据集
+    # - path: /x2robot_data/zhengwei/10054/20250327-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10054/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10054/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10054/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10054/20250401-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10054/20250402-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10054/20250403-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10054/20250403-day-fold-item-towel-2
+    # # 10055数据集
+    # - path: /x2robot_data/zhengwei/10055/20250325-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250325-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10055/20250325-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10055/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250331-day-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10055/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250401-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250402-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250403-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250403-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250403-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10055/20250407-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250407-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250408-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250408-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250409-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250409-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250409-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250410-day-fold-towel-1
+    # - path: /x2robot_data/zhengwei/10055/20250410-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10055/20250411-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10055/20250414-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10055/20250415-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10055/20250416-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10055/20250416-day-fold-towel-new
+    # - path: /x2robot_data/zhengwei/10055/20250417-day-fold-towel
+    # # 10057数据集
+    # - path: /x2robot_data/zhengwei/10057/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10057/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10057/20250401-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10057/20250407-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10057/20250407-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10057/20250408-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10057/20250408-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10057/20250409-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10057/20250409-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10057/20250410-day-fold-towel-1
+    # - path: /x2robot_data/zhengwei/10057/20250410-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10057/20250411-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10057/20250414-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10057/20250415-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10057/20250416-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10057/20250416-day-fold-towel-new
+    # - path: /x2robot_data/zhengwei/10057/20250417-day-fold-towel
+    # # 10058数据集
+    # - path: /x2robot_data/zhengwei/10058/20250327-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250327-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10058/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10058/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10058/20250401-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250403-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10058/20250403-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250408-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10058/20250408-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250409-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10058/20250409-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250410-day-fold-towel-1
+    # - path: /x2robot_data/zhengwei/10058/20250410-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10058/20250411-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10058/20250414-day-fold-towel
+    # # 10062数据集
+    # - path: /x2robot_data/zhengwei/10062/20250415-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10062/20250416-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10062/20250416-day-fold-towel-new
+    # - path: /x2robot_data/zhengwei/10062/20250417-day-fold-towel
+    # # 10069数据集
+    # - path: /x2robot_data/zhengwei/10069/20250331-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10069/20250401-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10069/20250401-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10069/20250402-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10069/20250403-day-fold-item-towel-1
+    # # 10070数据集
+    # - path: /x2robot_data/zhengwei/10070/20250407-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10070/20250407-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10070/20250408-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10070/20250408-day-fold-item-towel-2
+    # # 10071数据集
+    # - path: /x2robot_data/zhengwei/10071/20250409-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10071/20250409-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10071/20250409-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10071/20250410-day-fold-towel-1
+    # - path: /x2robot_data/zhengwei/10071/20250410-day-fold-towel-towel-2
+    # - path: /x2robot_data/zhengwei/10071/20250410-day-fold-towel-2
+    # - path: /x2robot_data/zhengwei/10071/20250411-day-fold-towel
+    # - path: /x2robot_data/zhengwei/10071/20250414-day-fold-towel
+    # # 10073数据集
+    # - path: /x2robot_data/zhengwei/10073/20250328-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10073/20250328-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10073/20250328-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10073/20250329-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10073/20250329-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10073/20250329-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10073/20250329-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10073/20250330-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10073/20250330-day-fold-item-towel-2
+    # - path: /x2robot_data/zhengwei/10073/20250330-night-fold-item-towel-3
+    # - path: /x2robot_data/zhengwei/10073/20250330-night-fold-item-towel-4
+    # - path: /x2robot_data/zhengwei/10073/20250331-day-fold-item-towel-1
+    # - path: /x2robot_data/zhengwei/10073/20250331-day-fold-item-towel-2 
+    # - path: /x2robot_data/zhengwei/10073/20250401-day-fold-item-towel-1  
+shape_meta: &shape_meta
+  obs:
+    face_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: faceImg
+    left_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: leftImg
+    right_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: rightImg
+    agent_pos:
+      shape: [16]
+      horizon: ${eval:'${task.low_dim_obs_horizon} + ${task.action_history_length}'}
+      type: low_dim
+  action:
+    shape: [14]
+    horizon: ${task.action_horizon}
+    type: low_dim
+
+dataset:
+  dataset_paths: ${task.dataset_path}
+  seed: 42
+  repeat_num: 1
+  train_val_split: 0.99
+  cache_dir: /x2robot_v2/ganruyi/.cache/dataset_cache

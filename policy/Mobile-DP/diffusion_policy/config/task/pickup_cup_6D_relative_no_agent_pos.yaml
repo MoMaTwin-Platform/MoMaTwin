@@ -1,0 +1,97 @@
+name: pickup_cup_6D_relative_no_agent_pos
+# name: pick_waste_hist2s
+
+image_shape: [3, 480, 640]
+low_dim_obs_horizon: 1
+img_obs_horizon: 1
+action_horizon: 16
+action_history_length: 0
+image_history_length: 0
+is_binocular: False
+is_factory: False # 只x+0.15,z+0.2
+use_quaternion: False # 采用四元数来表示旋转
+add_noise: False
+filter_angle_outliers: False # 过滤角度异常值会报错
+use_gripper_cur: False
+use_joint_cur: False
+use_diversity_file: False
+task_config_path: /x2robot/xinyuanfang/projects/diffusion_policy/diffusion_policy/config/task/pickup_cup_6D_relative_no_agent_pos.yaml
+obs_action_keys: [
+    "follow_left_ee_cartesian_pos",
+    "follow_left_ee_rotation_6D",
+    "follow_left_gripper",
+    "follow_right_ee_cartesian_pos",
+    "follow_right_ee_rotation_6D",
+    "follow_right_gripper",
+]
+predict_action_keys: [
+    "follow_left_ee_cartesian_pos_relative",
+    "follow_left_ee_rotation_6D_relative",
+    "follow_left_gripper",
+    "follow_right_ee_cartesian_pos_relative",
+    "follow_right_ee_rotation_6D_relative",
+    "follow_right_gripper",
+]
+
+dataset_path:
+- path: /x2robot/zhengwei/10015/20250415-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250408-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250331-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250330-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250329-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250328-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250323-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250322-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250320-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250319-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250318-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250317-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250316-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250315-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250314-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250312-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250311-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250310-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250309-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250308-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250307-day-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250306-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250305-night-pick_up-cup-car
+- path: /x2robot/zhengwei/10015/20250304-night-pick_up-cup-car
+
+shape_meta: &shape_meta
+  obs:
+    face_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: faceImg
+    left_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: leftImg
+    right_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: rightImg
+    # agent_pos:
+    #   shape: [20] # 14 + 14
+    #   horizon: ${eval:'${task.low_dim_obs_horizon} + ${task.action_history_length}'}
+    #   type: low_dim
+  action:
+    shape: [20]
+    horizon: ${task.action_horizon}
+    type: low_dim
+
+dataset:
+  dataset_paths: ${task.dataset_path}
+  # seed: 42
+  cache_dir: /x2robot/xinyuanfang/.cache/dataset_cache
+  is_bi_mode: True
+  repeat_num: 1
+  train_val_split: 0.99
+  # sample_ratio: [1.0, 1.0]
+  save_meta_data: True
+  force_overwrite: False

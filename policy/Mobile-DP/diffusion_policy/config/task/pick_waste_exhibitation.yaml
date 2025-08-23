@@ -1,0 +1,210 @@
+name: pick_waste_exhibitation
+image_shape: [3, 480, 640]
+low_dim_obs_horizon: 1
+img_obs_horizon: 1
+action_horizon: 40
+action_history_length: 0
+image_history_length: 0
+is_binocular: False
+is_factory: False # 只x+0.15,z+0.2
+use_quaternion: False # 采用四元数来表示旋转
+add_noise: False
+filter_angle_outliers: False # 过滤角度异常值会报错
+use_diversity_file: False
+task_config_path: /x2robot_v2/wjm/prj/diffusion_policy/diffusion_policy/config/task/pick_waste_exhibitation.yaml
+
+obs_action_keys: [
+    "follow_left_ee_cartesian_pos",
+    "follow_left_ee_rotation",
+    "follow_left_gripper",
+    "follow_right_ee_cartesian_pos",
+    "follow_right_ee_rotation",
+    "follow_right_gripper",
+    "velocity_decomposed",
+    "height",
+    "head_rotation",
+    "follow_left_gripper_cur",
+    "follow_right_gripper_cur",
+]
+predict_action_keys: [
+    "follow_left_ee_cartesian_pos",
+    "follow_left_ee_rotation",
+    "follow_left_gripper",
+    "follow_right_ee_cartesian_pos",
+    "follow_right_ee_rotation",
+    "follow_right_gripper",
+    "velocity_decomposed",
+    "height",
+    "head_rotation",
+    "follow_left_gripper_cur",
+    "follow_right_gripper_cur",
+]
+
+dataset_path:  
+    # 10079设备数据
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250707-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250707-night-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250708-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250708-night-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250709-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250709-night-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250710-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250712-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250712-day-navigate_and_pick_waste-dual-turtle-1
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10079/20250713-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+
+    # 10081设备数据
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250707-day-navigate_and_pick_waste-dual-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250707-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250708-day-navigate_and_pick_waste-dual-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250710-day-navigate_and_pick_waste-dual-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250710-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250711-day-navigate_and_pick_waste-dual-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10081/20250711-day-10031-pick-waste-turtle-dual-slave2master-1
+      use_takeover_only: True
+
+    # 10083设备数据
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250704-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250707-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250708-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250709-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250709-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250710-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250710-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250711-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250711-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250711-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250711-night-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250712-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250712-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10083/20250713-day-navigate_and_pick_waste-single-move
+    
+    # 10093设备数据
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250704-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250707-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250708-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250708-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250709-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250709-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250710-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250710-night-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250711-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250711-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250711-night-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250712-day-navigate_and_pick_waste-single-move
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250712-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10093/20250713-day-navigate_and_pick_waste-single-move
+    
+    # 10103设备数据
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250707-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250707-night-navigate_and_pick_waste-single-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250707-night-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250708-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250708-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250708-day-navigate_and_pick_waste-dual-turtle-1
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250709-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250709-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250710-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250710-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250711-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250711-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250712-day-10031-pick-waste-turtle-dual-slave2master
+      use_takeover_only: True
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250712-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250713-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+    - path: /x2robot_v2/wjm/prj/filtered_data/10103/20250714-day-navigate_and_pick_waste-dual-turtle
+      use_frame_sampling: True
+      sample_rate: 0.8
+
+    # factory10016设备数据
+    - path: /x2robot_v2/wjm/prj/filtered_data/factory10016/20250707-day-navigate_and_pick_waste-single-turtle
+    - path: /x2robot_v2/wjm/prj/filtered_data/factory10016/20250708-day-navigate_and_pick_waste-single-turtle
+    - path: /x2robot_v2/wjm/prj/filtered_data/factory10016/20250708-night-navigate_and_pick_waste-single-turtle
+
+# 移动双臂操作的数据维度配置
+shape_meta: &shape_meta
+  obs:
+    face_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: faceImg
+    left_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: leftImg
+    right_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: rightImg
+    agent_pos:
+      shape: [22]  # 左臂(7)+右臂(7)+velocity_decomposed(3)+高度(1)+头部旋转(2)+电流(2) = 22维
+      horizon: ${eval:'${task.low_dim_obs_horizon} + ${task.action_history_length}'}
+      type: low_dim
+  action:
+    shape: [22]  # 左臂(7)+右臂(7)+velocity_decomposed(3)+高度(1)+头部旋转(2)+电流(2) = 22维
+    horizon: ${task.action_horizon}
+    type: low_dim
+
+# 流式训练数据集配置
+dataset:
+  dataset_paths: ${task.dataset_path}
+  train_val_split: 0.98
+  cache_dir: /x2robot_v2/Data/.cache/dataset_cache_v2
+  # sample_rate: 1.0
+  force_overwrite: False
+  is_bi_mode: True  # 支持双向训练模式
+  seed: 42
+  save_meta_data: True 

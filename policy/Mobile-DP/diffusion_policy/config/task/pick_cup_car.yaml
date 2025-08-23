@@ -1,0 +1,81 @@
+name: pick_cup_car_p20_cur_10015
+
+image_shape: [3, 480, 640]
+low_dim_obs_horizon: 1
+img_obs_horizon: 1
+action_horizon: 20
+action_history_length: 0 # 不加历史
+# action_history_length: 10 # 加历史
+image_history_length: 0
+filter_angle_outliers: False # 过滤角度异常值会报错
+trim_stationary: True
+
+predict_action_keys:
+  - follow_left_ee_cartesian_pos
+  - follow_left_ee_rotation
+  - follow_left_gripper
+  - follow_right_ee_cartesian_pos
+  - follow_right_ee_rotation
+  - follow_right_gripper
+
+# obs_action_keys必须配置，不能缺失
+obs_action_keys:
+  - follow_left_ee_cartesian_pos
+  - follow_left_ee_rotation
+  - follow_left_gripper
+  - follow_right_ee_cartesian_pos
+  - follow_right_ee_rotation
+  - follow_right_gripper
+  # 如果需要额外的观测数据（比如力控），可以在这里加：
+  - follow_left_gripper_cur
+  - follow_right_gripper_cur
+
+task_config_path: /x2robot_v2/ganruyi/code/diffusion_policy/diffusion_policy/config/task/pick_cup_car.yaml
+
+dataset_path:
+- path: /x2robot_data/zhengwei/10015/20250304-night-pick_up-cup-car
+- path: /x2robot_data/zhengwei/10015/20250305-night-pick_up-cup-car
+# - path: /x2robot_data/zhengwei/10015/20250330-night-pick_up-cup-car
+# - path: /x2robot_data/zhengwei/10015/20250331-day-pick_up-cup-car
+# - path: /x2robot_data/zhengwei/10015/20250408-day-pick_up-cup-car
+# - path: /x2robot_data/zhengwei/10015/20250415-day-pick_up-cup-car
+# - path: /x2robot_data/zhengwei/10015/20250424-day-pick_up-cup-car
+# - path: /x2robot_data/zhengwei/10015/20250506-day-pick_up-cup-car
+
+shape_meta: &shape_meta
+  obs:
+    face_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: faceImg
+    left_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: leftImg
+    right_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: rightImg
+    agent_pos:
+      shape: [16]
+      horizon: ${eval:'${task.low_dim_obs_horizon} + ${task.action_history_length}'}
+      type: low_dim
+  action:
+    shape: [14]
+    horizon: ${task.action_horizon}
+    type: low_dim
+
+dataset:
+  dataset_paths: ${task.dataset_path}
+  seed: 42
+  is_bi_mode: True
+  repeat_num: 1
+  train_val_split: 0.95
+  # sample_rate: 0.5
+  save_meta_data: True
+  force_overwrite: False
+  cache_dir: /x2robot_v2/ganruyi/.cache/dataset_cache # 实验时采用自己的缓存目录，最终会合并到/x2robot/Data/.cache/dataset_cache
+  

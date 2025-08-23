@@ -1,0 +1,27 @@
+有的时候我们期望在diffusion policy的视觉输入中添加额外的视觉提示（box/mask/point等），
+同时我们又希望尽可能减少多现有dp代码和x2robot_dataset的侵入和修改，
+因此设计了如下的方案：
+    1.用户需要在diffusion_policy/model/visual_instructors文件夹下新建一个python文件，文件名自定义，比如my_visual_instructor.py。
+
+    2.在my_visual_instructor.py中定义一个类，类名自定义，比如MyVisualInstructor。
+
+    3.在MyVisualInstructor类必须实现一个方法modify_obs(self, batch)，该方法接收一个batch数据，并返回修改后的batch数据。采取的是
+      inplace修改模式。比如在这个方法中取出主视角图像：face_obs = batch['obs']['face_view'] 然后将你想添加的视觉提示直接绘制在原图
+      上。所以这种模式只允许修改现有输入，不允许增加新的图像输入。
+
+    4.然后在diffusion_policy/config/task的你的配置文件中添加一个字段，例如：
+        visual_instruct:
+        _target_: diffusion_policy.model.visual_instructors.instruct_put_box.InstructPutBox
+        file: /x2robot/caichuang/extra_codes/codes/grounding_agent/instruct_put_0528/instruct_put_box_0528.json
+        custom_defined_invalid_samples: /x2robot/caichuang/extra_codes/codes/grounding_agent/instruct_put_0528/instruct_put_invalid_samples.json
+
+        这里的_target_就是你自定义的MyVisualInstructor类，file文件中存储了你的视觉提示信息，你需要在类中实现对其的解析。一般来说这个文件会被解析成一个字典，key是
+        sample名称（或者叫uid）, value是对应这个sample的视觉提示信息。custom_defined_invalid_samples文件中存储了一些无效的sample，这些sample一般是你在制作
+        视觉提示时处于各种原因无法得到质量较好的能让你的case，因此你会忽略这些case，只要这些case不是占大多数，就不会影响训练。
+
+    5.diffusion_policy/workspace/train_diffusion_unet_image_workspace_distribute_v4.py中，TrainDiffusionUnetImageWorkspace的初始化方法中会检测task下的
+      配置文件中是否有visual_instruct字段，如果有，则会调用policy的register_visual_instruct方法，将MyVisualInstructor类的实例注册为policy的成员
+
+    6.训练时，policy会查看自己是否注册了visual_instructor，如果注册了，则会调用visual_instructor的modify_obs方法，修改输入的batch中的观测，然后再进行后续操作
+
+    7.推理时，对观测添加视觉提示的操作是在算法外部进行的，因此不会调用visual_instructor的modify_obs方法

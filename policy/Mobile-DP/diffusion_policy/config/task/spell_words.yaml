@@ -1,0 +1,126 @@
+name: spell_words
+
+image_shape: [3, 480, 640]
+low_dim_obs_horizon: 1
+img_obs_horizon: 1
+action_horizon: 20
+action_history_length: 0
+image_history_length: 0
+filter_angle_outliers: False # 过滤角度异常值会报错
+trim_stationary: True
+
+predict_action_keys:
+  - follow_left_ee_cartesian_pos
+  - follow_left_ee_rotation
+  - follow_left_gripper
+  - follow_right_ee_cartesian_pos
+  - follow_right_ee_rotation
+  - follow_right_gripper
+
+# obs_action_keys必须配置，不能缺失
+obs_action_keys:
+  - follow_left_ee_cartesian_pos
+  - follow_left_ee_rotation
+  - follow_left_gripper
+  - follow_right_ee_cartesian_pos
+  - follow_right_ee_rotation
+  - follow_right_gripper
+  # 如果需要额外的观测数据（比如力控），可以在这里加：
+  # - follow_left_gripper_cur
+  # - follow_right_gripper_cur
+task_config_path: /x2robot/ganruyi/code/diffusion_policy/diffusion_policy/config/task/spell_words.yaml
+
+dataset_path:
+- path: /x2robot/zhengwei/10044/20250410-day-spell-word-2
+- path: /x2robot/zhengwei/10044/20250410-day-spell-word
+- path: /x2robot/zhengwei/10044/20250409-day-spell-word
+- path: /x2robot/zhengwei/10044/20250408-day-spell-word
+- path: /x2robot/zhengwei/10044/20250407-day-spell-word
+- path: /x2robot/zhengwei/10044/20250408-day-spell-word
+- path: /x2robot/zhengwei/10044/20250407-day-spell-word
+- path: /x2robot/zhengwei/10009/20250407-day-spell-word
+- path: /x2robot/zhengwei/10009/20250403-day-spell-word
+- path: /x2robot/zhengwei/10009/20250402-night-spell-word
+- path: /x2robot/zhengwei/10009/20250402-day-spell-word
+- path: /x2robot/zhengwei/10009/20250401-day-spell-word
+- path: /x2robot/zhengwei/10009/20250331-day-spell-word-car-2
+- path: /x2robot/zhengwei/10009/20250331-day-spell-word-car
+- path: /x2robot/zhengwei/10009/20250410-day-spell-word
+- path: /x2robot/zhengwei/10015/20250401-night-spell-word-car
+- path: /x2robot/zhengwei/10015/20250331-night-spell-word-car
+- path: /x2robot/zhengwei/10015/20250330-night-spell-word-car
+- path: /x2robot/zhengwei/10015/20250329-night-spell-word
+- path: /x2robot/zhengwei/10015/20250327-night-spell-word-car
+- path: /x2robot/zhengwei/10015/20250327-day-spell-word-car
+- path: /x2robot/zhengwei/10015/20250324-night-spell-word
+- path: /x2robot/zhengwei/10015/20250322-day-spell-word--1
+- path: /x2robot/zhengwei/10015/20250322-day-spell-word
+- path: /x2robot/zhengwei/10015/20250321-night-spell-word-car-1
+- path: /x2robot/zhengwei/10015/20250321-night-spell-word-car
+- path: /x2robot/zhengwei/10015/20250411-day-spell-word-car-1
+- path: /x2robot/zhengwei/10044/20250411-day-spell-word
+- path: /x2robot/zhengwei/10009/20250411-day-spell-word
+- path: /x2robot/zhengwei/10009/20250416-day-spell-word
+- path: /x2robot/zhengwei/10009/20250415-day-spell-word
+- path: /x2robot/zhengwei/10009/20250414-day-spell-word
+- path: /x2robot/zhengwei/10009/20250411-day-spell-word
+- path: /x2robot/zhengwei/10044/20250415-day-spell-word
+- path: /x2robot/zhengwei/10044/20250414-day-spell-word
+- path: /x2robot/zhengwei/10044/20250411-day-spell-word
+- path: /x2robot/zhengwei/10015/20250411-day-spell-word-car-1
+- path: /x2robot/zhengwei/10009/20250423-day-spell-word
+- path: /x2robot/zhengwei/10009/20250422-day-spell-word
+- path: /x2robot/zhengwei/10009/20250421-day-spell-word-1
+- path: /x2robot/zhengwei/10009/20250418-day-spell-word
+- path: /x2robot/zhengwei/10009/20250417-day-spell-word-1
+- path: /x2robot/zhengwei/10015/20250422-day-spell-word-car
+- path: /x2robot/zhengwei/10015/20250417-day-spell-word-car
+- path: /x2robot/zhengwei/10065/20250421-day-spell-word-1
+- path: /x2robot/zhengwei/10065/20250418-day-spell-word
+- path: /x2robot/zhengwei/10065/20250417-day-spell-word-1
+- path: /x2robot/zhengwei/10065/20250416-day-spell-word
+- path: /x2robot/zhengwei/10068/20250423-day-spell-word
+- path: /x2robot/zhengwei/10068/20250422-day-spell-word
+- path: /x2robot/zhengwei/10068/20250421-day-spell-word--1
+- path: /x2robot/zhengwei/10068/20250418-day-spell-word
+- path: /x2robot/zhengwei/10068/20250417-day-spell-word
+- path: /x2robot/zhengwei/10068/20250416-day-spell-word
+- path: /x2robot/zhengwei/factory10024/20250422-day-spell-word
+- path: /x2robot/zhengwei/factory10024/20250421-day-spell-word
+
+shape_meta: &shape_meta
+  obs:
+    face_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: faceImg
+    left_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: leftImg
+    right_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: rightImg
+    agent_pos:
+      shape: [14] # 因为要加上两维力控
+      horizon: ${eval:'${task.low_dim_obs_horizon} + ${task.action_history_length}'}
+      type: low_dim
+  action:
+    shape: [14]
+    horizon: ${task.action_horizon}
+    type: low_dim
+
+dataset:
+  dataset_paths: ${task.dataset_path}
+  seed: 42
+  repeat_num: 1
+  train_val_split: 0.99
+  root_dir: /x2robot/ganruyi/.cache/dataset_cache
+  instruction: 'pick up the english letter blocks to spell out the word of the object shown in the image'
+  instruction_path: /x2robot/Data/subtask_instruction_for_x2/{robot_id}/{topic_id}/{uid}.json
+  instruction_key:
+    - subtask_generation: 1.0

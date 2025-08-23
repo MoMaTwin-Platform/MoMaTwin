@@ -1,0 +1,108 @@
+name: tidy_clothes
+
+image_shape: [3, 480, 640]
+low_dim_obs_horizon: 1
+img_obs_horizon: 1
+action_horizon: 20
+action_history_length: 0
+image_history_length: 0
+filter_angle_outliers: False # 过滤角度异常值会报错
+trim_stationary: True
+task_config_path: /x2robot_v2/ganruyi/code/diffusion_policy/diffusion_policy/config/task/tidy_clothes.yaml
+obs_action_keys: [
+    "follow_left_ee_cartesian_pos",
+    "follow_left_ee_rotation",
+    "follow_left_gripper",
+    "follow_right_ee_cartesian_pos",
+    "follow_right_ee_rotation",
+    "follow_right_gripper",
+    "follow_left_gripper_cur",
+    "follow_right_gripper_cur",
+    "velocity_decomposed",
+    "height",
+    "head_rotation"
+]
+predict_action_keys: [
+    "master_left_ee_cartesian_pos",
+    "master_left_ee_rotation",
+    "follow_left_gripper",
+    "master_right_ee_cartesian_pos",
+    "master_right_ee_rotation",
+    "follow_right_gripper",
+    "velocity_decomposed",
+    "height",
+    "head_rotation",
+]
+
+dataset_path:
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250701-day-tidy_clothes_1--1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250701-day-tidy_clothes_1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250701-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250630-day-tidy_clothes_1
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250630-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250627-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250627-day-tidy_clothes_1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250626-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250626-day-tidy_clothes_1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250625-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250625-day-tidy_clothes_1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250624-day-tidy_clothes_1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250624-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250624-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10085/20250623-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250623-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250620-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250619-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250618-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250617-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250616-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250613-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250612-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250611-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250610-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250609-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250606-day-tidy_clothes
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250605-day-tidy_clothes-1
+- path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250605-day-tidy_clothes
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250604-day-tidy_clothes-3
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250604-day-tidy_clothes-2
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250604-day-tidy_clothes-1
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250604-day-tidy_clothes
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250603-day-tidy_clothes
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250603-day-tidy_clothes-1
+# - path: /x2robot_v2/ganruyi/code/diffusion_policy/data_preprocess/processed_data_filtered/10105/20250603-day-tidy_clothes-2
+
+
+shape_meta: &shape_meta
+  obs:
+    face_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: faceImg
+    left_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: leftImg
+    right_wrist_view:
+      shape: ${task.image_shape}
+      horizon: ${task.img_obs_horizon}
+      type: rgb
+      camera_name: rightImg
+    agent_pos:
+      shape: [22] # 14 + 14 + 3
+      horizon: ${eval:'${task.low_dim_obs_horizon} + ${task.action_history_length}'}
+      type: low_dim
+  action:
+    shape: [20] # [14+3+2+1]
+    horizon: ${task.action_horizon}
+    type: low_dim
+
+dataset:
+  dataset_paths: ${task.dataset_path}
+  # seed: 42
+  cache_dir: /x2robot_v2/ganruyi/.cache/dataset_cache
+  repeat_num: 1
+  train_val_split: 0.99
+  # sample_ratio: [1.0, 1.0]
