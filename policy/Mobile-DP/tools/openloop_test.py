@@ -205,9 +205,9 @@ def main(args):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--checkpoint_path", type=str, default="/x2robot_v2/wjm/prj/diffusion_policy_logs/2025.07.04/20.52.13_navigate_and_pick_waste_navigate_and_pick_waste/checkpoints/epoch=0082-train_loss=0.00041.ckpt")
+    parser.add_argument("--checkpoint_path", type=str, default="/x2robot_v2/wjm/prj/MoMaTwin/policy/Mobile-DP/logs/2025.07.04/20.52.13_navigate_and_pick_waste_navigate_and_pick_waste/checkpoints/epoch=0082-train_loss=0.00041.ckpt")
     parser.add_argument("--action_horizon", type=int, default=40)
-    parser.add_argument("--data_path", type=str, default="/x2robot_v2/wjm/prj/diffusion_policy/data_preprocess/processed_data_filtered/10103/20250704-day-navigate_and_pick_waste-dual-turtle/20250704-day-navigate_and_pick_waste-dual-turtle@MASTER_SLAVE_MODE@2025_07_04_10_49_14", help="Path containing both video files and action data")
+    parser.add_argument("--data_path", type=str, default="/x2robot_v2/wjm/prj/processed_data_filtered/10103/20250704-day-navigate_and_pick_waste-dual-turtle/20250704-day-navigate_and_pick_waste-dual-turtle@MASTER_SLAVE_MODE@2025_07_04_10_49_14", help="Path containing both video files and action data")
     args = parser.parse_args()
     main(args)
 

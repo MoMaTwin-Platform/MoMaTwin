@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:8
 #SBATCH --mem=1600G
 #SBATCH --exclude=master
-#SBATCH -o /x2robot_v2/wjm/prj/diffusion_policy_logs/%x-%j.log
+#SBATCH -o /x2robot_v2/wjm/prj/MoMaTwin/policy/Mobile-DP/logs/%x-%j.log
 
 export HYDRA_FULL_ERROR=1
 export TOKENIZERS_PARALLELISM=false
@@ -60,7 +60,7 @@ export LAUNCHER="accelerate launch \
     --num_processes $all_gpus \
     --num_machines $NNODES \
     "
-export SCRIPT="/x2robot_v2/wjm/prj/diffusion_policy/train.py"
+export SCRIPT="/x2robot_v2/wjm/prj/MoMaTwin/policy/Mobile-DP/train.py"
 export SCRIPT_ARGS="--config-name=pick_waste_exhibitation"
 
 export CMD="$LAUNCHER $SCRIPT $SCRIPT_ARGS"

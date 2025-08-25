@@ -128,7 +128,7 @@ training:
   tqdm_interval_sec: 1.0
   resume: False
   # resume: True
-  # resume_ckpt_path: '/x2robot_v2/wjm/prj/diffusion_policy_logs/2025.07.11/00.26.53_pick_waste_exhibitation_pick_waste_exhibitation/checkpoints/epoch=0044-train_loss=0.00073.ckpt' 
+  # resume_ckpt_path: '/x2robot_v2/wjm/prj/MoMaTwin/policy/Mobile-DP/logs/2025.07.11/00.26.53_pick_waste_exhibitation_pick_waste_exhibitation/checkpoints/epoch=0044-train_loss=0.00073.ckpt' 
   # force_load_checkpoint: True  
 
 logging:
@@ -150,7 +150,7 @@ checkpoint:
   save_last_snapshot: False
 
 multi_run:
-  run_dir: /x2robot_v2/wjm/prj/diffusion_policy_logs/${oc.env:NOW}_${name}_${task_name}
+  run_dir: ${oc.env:PWD}/logs/${oc.env:NOW}_${name}_${task_name}
   wandb_name_base: ${name}_${task_name}_${oc.env:NOW}
 
 hydra:

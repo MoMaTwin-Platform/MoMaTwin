@@ -5,7 +5,8 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 
 # 读取YAML配置文件
-yaml_path = "/x2robot_v2/wjm/prj/diffusion_policy/diffusion_policy/config/task/pretrain_pick_waste.yaml"
+import os
+yaml_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "diffusion_policy/config/task/pretrain_pick_waste.yaml")
 
 with open(yaml_path, 'r') as file:
     config = yaml.safe_load(file)

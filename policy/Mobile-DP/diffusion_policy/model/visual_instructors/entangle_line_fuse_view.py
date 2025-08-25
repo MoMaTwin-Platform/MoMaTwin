@@ -95,7 +95,7 @@ class EntangleLineFuseView:
             face_view_cur_frame = np.ascontiguousarray(face_view_cur_frame)
             face_view_cur_frame = cv2.rectangle(face_view_cur_frame, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
-            cv2.imwrite(f'/x2robot/caichuang/extra_codes/dp_roy/diffusion_policy/test_img/a/{i}.jpg', face_view_cur_frame)
+            # cv2.imwrite(f'/x2robot/caichuang/extra_codes/dp_roy/diffusion_policy/test_img/a/{i}.jpg', face_view_cur_frame)
             
             batch['obs']['face_view'][i][0] = torch.from_numpy(face_view_cur_frame).to(face_view_img.device)
 

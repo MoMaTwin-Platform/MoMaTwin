@@ -11,7 +11,7 @@ use_quaternion: False # 采用四元数来表示旋转
 add_noise: False
 filter_angle_outliers: False # 过滤角度异常值会报错
 use_diversity_file: False
-task_config_path: /x2robot_v2/wjm/prj/diffusion_policy/diffusion_policy/config/task/pick_waste_exhibitation.yaml
+task_config_path: ${oc.env:PWD}/diffusion_policy/config/task/pick_waste_exhibitation.yaml
 
 obs_action_keys: [
     "follow_left_ee_cartesian_pos",
