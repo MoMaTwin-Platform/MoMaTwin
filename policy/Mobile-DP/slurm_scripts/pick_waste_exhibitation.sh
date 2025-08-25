@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=pick_waste_exhibitation
-#SBATCH --nodes=9
+#SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=124
 #SBATCH --gres=gpu:8
