@@ -1,0 +1,14 @@
+{
+    "text": {
+        "P01-20240203-150506":{
+            "type": "single_frame",
+            "annotation": "描述第20帧的内容",
+            "frame_indices": [20]
+        },
+        "P01-20240203-152323":{
+            "type": "single_frame",
+            "annotation": "描述第30帧的内容",
+            "frame_indices": [30]
+        }
+    }   
+}

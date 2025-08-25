@@ -1,0 +1,47 @@
+{
+    "x2_data": {
+        "robot_data": "/x2robot/zhengwei/factory10000/20241105-pick_up-sponge",
+        "conditions": [
+            {
+                "sample_name": "factory10000_20241105-pick_up-sponge@TEACH_ARM@2024_11_05_17_22_08",
+                "image": {
+                    "leftImg": {
+                        "frame_indices": [13, 20],
+                        "fig": ["./data_builder/image_folder1/imgs1/1.jpg", 
+                        "./data_builder/image_folder1/imgs1/2.jpg"]
+                    },
+                    "faceImg": {
+                        "frame_indices": [16],
+                        "fig": ["./data_builder/image_folder1/imgs1/3.jpg"]
+                    },
+                    "rightImg": {
+                        "frame_indices": [7],
+                        "fig": ["./data_builder/image_folder1/imgs1/3.jpg"]
+                    }
+                },
+                "video": {
+                    "leftImg": "./data_builder/x2_cond_folder/video/1.mp4",
+                    "faceImg": "./data_builder/x2_cond_folder/video/2.mp4",
+                    "rightImg": "./data_builder/x2_cond_folder/video/3.mp4"
+                },
+                "text": [
+                    {
+                        "annotation": "single text",
+                        "annotation_type": "single_frame",
+                        "frame_indices": [20]
+                    },
+                    {
+                        "annotation": "intervel text",
+                        "annotation_type": "interval",
+                        "frame_indices": [19, 48, 60]
+                    },
+                    {
+                        "annotation": "contious text",
+                        "annotation_type": "continuous",
+                        "frame_indices": [2, 14]
+                    }
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,17 @@
+*egg-info/
+*__pycache__/
+*.jpg
+*.png
+*.ipynb
+*.jpg
+*.err
+*.out
+*.log
+tests/output*/
+*.txt
+*.json
+*.jsonl
+*.code-workspace
+.cache/
+build/
+!assets/*.png
